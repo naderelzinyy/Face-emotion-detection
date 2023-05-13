@@ -1,0 +1,13 @@
+container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    width: 200px;
+    color: white;
+}
