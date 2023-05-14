@@ -32,43 +32,29 @@ class Predictor:
                     )]
 
 
-class CV2:
-
-    @staticmethod
-    def set_cv2_props(prediction):
-        font = cv2.FONT_HERSHEY_DUPLEX
-        for name, (top, right, bottom, left) in prediction:
-            top *= 4
-            right *= 4
-            bottom *= 4
-            left *= 4
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 255), 2)
-            cv2.putText(frame, name, (left - 10, top - 6), font, 0.8, (255, 255, 255), 1)
-
-        cv2.imshow('Video', frame)
-
 
 if __name__ == '__main__':
+    pass
 
-    webcam = cv2.VideoCapture("testing-assets/top-players.jpeg")  # 0 to use webcam
-    while True:
-        # Iterate till the cam works
-        rval = False
-        while not rval:
-            # Extract the frame from the webcam.
-            (rval, frame) = webcam.read()
-            if not rval:
-                print("Camera is not opened...")
-                exit(0)
-
-        frame = cv2.flip(frame, 1)
-        frame_copy = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-        # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-        # Sets the image to the appropriate settings of face_recognition.
-        frame_copy = cv2.cvtColor(frame_copy, cv2.COLOR_BGR2RGB)
-        predictions = Predictor.predict(frame_copy, model_path="./model/trained_knn_model.clf")  # add path here
-        CV2.set_cv2_props(prediction=predictions)
-        if cv2.waitKey(0) & 0xFF == ord('q'):
-            break
-    webcam.release()
-    cv2.destroyAllWindows()
+    # webcam = cv2.VideoCapture("testing-assets/top-players.jpeg")  # 0 to use webcam
+    # while True:
+    #     # Iterate till the cam works
+    #     rval = False
+    #     while not rval:
+    #         # Extract the frame from the webcam.
+    #         (rval, frame) = webcam.read()
+    #         if not rval:
+    #             print("Camera is not opened...")
+    #             exit(0)
+    #
+    #     frame = cv2.flip(frame, 1)
+    #     frame_copy = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    #     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+    #     # Sets the image to the appropriate settings of face_recognition.
+    #     frame_copy = cv2.cvtColor(frame_copy, cv2.COLOR_BGR2RGB)
+    #     predictions = Predictor.predict(frame_copy, model_path="./model/trained_knn_model.clf")  # add path here
+    #     CV2.set_cv2_props(prediction=predictions)
+    #     if cv2.waitKey(0) & 0xFF == ord('q'):
+    #         break
+    # webcam.release()
+    # cv2.destroyAllWindows()
