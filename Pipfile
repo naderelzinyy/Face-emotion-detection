@@ -7,6 +7,7 @@ name = "pypi"
 deepface = "*"
 cmake = "*"
 face-recognition = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
