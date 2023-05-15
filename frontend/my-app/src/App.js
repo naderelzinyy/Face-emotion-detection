@@ -4,6 +4,7 @@ import AddUser from "./Pages/add_user"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import TakePicture from "./Pages/camera_page";
+import FaceDetector from "./Pages/face_detecter_page";
 
 
 export default function MyApp() {
@@ -25,6 +26,7 @@ export default function MyApp() {
             <Route path="/" element={<HomePage />} />
             <Route path="/add_user" element={<AddUser />} />
             <Route path="/camera" element={<TakePicture />} />
+            <Route path="/face_detector" element={<FaceDetector />} />
           </Routes>
         </Router>
       </ThemeProvider>
