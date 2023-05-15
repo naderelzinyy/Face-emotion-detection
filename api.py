@@ -18,6 +18,8 @@ async def train() -> dict:
         return {"message": "training failed"}
 
 
-@app.get("/hello")
-async def hello() -> dict[str, str]:
-    return {"hello": "hello"}
+@app.post("/predict")
+async def predict(request: dict) -> dict[str, str]:
+    print(f"{request = }")
+    predicted_name = Predictor().predict(request.get("frame"))
+    return {"name": predicted_name[0]} if len(predicted_name) else {"message": "user not found"}
