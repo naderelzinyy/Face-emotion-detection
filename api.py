@@ -2,6 +2,7 @@ import threading
 
 from fastapi import FastAPI
 
+from services.face_recognition.Prediction import Predictor
 from services.face_recognition.Training import Trainer
 
 app = FastAPI()
