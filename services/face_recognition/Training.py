@@ -16,18 +16,18 @@ class Trainer:
 
     def train(self, train_dir, model_dir, neighbours_num=5, algorithm='ball_tree'):
         # Iterate over every directory in train_dir
-        people = [person for person in os.listdir(train_dir)]
+        people = list(os.listdir(train_dir))
         for person_dir in people:
             if not os.path.isdir(os.path.join(train_dir, person_dir)):  # training-assets/Human
                 continue
             # Iterate of the image of the current directory.
-            for img_path in image_files_in_folder(os.path.join(train_dir, person_dir)):
+            for img_path in image_files_in_folder(os.path.join(self.train_dir, person_dir)):
                 img = face_recognition.load_image_file(img_path)
                 num_of_faces = face_recognition.face_locations(img)
                 print("Checking :", img_path)
                 if len(num_of_faces) != 1:
                     # If there are no people or too many people in a training image, skip the image.
-                    print("Image {} skipped because of recognizing {} faces".format(img_path, len(num_of_faces)))
+                    print(f"Image {img_path} skipped because of recognizing {len(num_of_faces)} faces")
                     self.missed_pictures += 1
                 else:
                     # append the current face to our training set
@@ -62,4 +62,4 @@ class Trainer:
 
 
 if __name__ == '__main__':
-    Trainer().train("training-assets", "./model/trained_knn_model.clf")  # add path here
+    Trainer().train()  # add path here
