@@ -31,9 +31,11 @@ class Predictor:
         matches = [closest_distances[0][i][0] <= threshold for i in range(len(face_box))]
         print(f"{matches = }")
         # predict classes and remove the matched points which are not with in the threshold.
-        return [(pred, loc) if rec else ("unknown", loc) for pred, loc, rec in
-                zip(knn_clf.predict(faces_encodings), face_box, matches
-                    )]
+        res = [(pred, loc) if rec else ("unknown", loc) for pred, loc, rec in
+         zip(knn_clf.predict(faces_encodings), face_box, matches
+             )]
+        print(f"{res = }")
+        return res
 
 
 if __name__ == '__main__':
