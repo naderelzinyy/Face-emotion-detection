@@ -20,7 +20,13 @@ async def train() -> dict:
 
 
 @app.post("/predict")
-async def predict(request: dict) -> dict[str, str]:
-    print(f"{request = }")
-    predicted_name = Predictor().predict(request.get("frame"))
-    return {"name": predicted_name[0]} if len(predicted_name) else {"message": "user not found"}
+async def predict(request: Request) -> dict[str, str]:
+    body = await request.body()
+    body = json.loads(body.decode())
+    image = body.get("image")
+    image = convert_base64_to_image(image)
+    image.save('base_test.png')
+    predicted_name = Predictor().predict(frame=image, model_path="models/trained_knn_model.clf")
+    return {"name": predicted_name[0]} if len(predicted_name) else "user not found"
+
+
