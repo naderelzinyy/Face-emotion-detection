@@ -1,5 +1,8 @@
 import pickle
+
+import cv2
 import face_recognition
+import numpy as np
 
 
 class Predictor:
@@ -14,6 +17,8 @@ class Predictor:
             with open(model_path, 'rb') as f:
                 knn_clf = pickle.load(f)
         # Get the face location of the passed image.
+        frame = np.array(frame)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         face_box = face_recognition.face_locations(frame)
         # return an empty list If no faces are detected in the picture.
         if len(face_box) == 0:
