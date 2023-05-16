@@ -6,12 +6,12 @@ class Predictor:
     model_path = "../../models/trained_knn_model.clf"
 
     @staticmethod
-    def predict(frame, knn_clf=None, threshold=0.6):  # 6 = 40+ , 4 = 60+
-        if not (knn_clf or Predictor.model_path):
+    def predict(frame, model_path, knn_clf=None, threshold=0.6):  # accuracy = 1 - threshold
+        if not (knn_clf or model_path):
             raise Exception("No model supplied")
         # Load the passed KNN model.
         if knn_clf is None:
-            with open(Predictor.model_path, 'rb') as f:
+            with open(model_path, 'rb') as f:
                 knn_clf = pickle.load(f)
         # Get the face location of the passed image.
         face_box = face_recognition.face_locations(frame)
