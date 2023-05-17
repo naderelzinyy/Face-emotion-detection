@@ -3,7 +3,6 @@ import HomePage from "./Pages/home_page";
 import AddUser from "./Pages/add_user"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import TakePicture from "./Pages/camera_page";
 
 
 export default function MyApp() {
@@ -24,7 +23,6 @@ export default function MyApp() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/add_user" element={<AddUser />} />
-            <Route path="/camera" element={<TakePicture />} />
           </Routes>
         </Router>
       </ThemeProvider>
