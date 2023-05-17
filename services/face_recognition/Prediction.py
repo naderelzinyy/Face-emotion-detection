@@ -1,4 +1,3 @@
-import cv2
 import pickle
 import face_recognition
 
@@ -7,12 +6,12 @@ class Predictor:
     model_path = "../../models/trained_knn_model.clf"
 
     @staticmethod
-    def predict(frame, knn_clf=None, model_path=None, threshold=0.6):  # 6 = 40+ , 4 = 60+
-        if not (knn_clf or model_path):
+    def predict(frame, knn_clf=None, threshold=0.6):  # 6 = 40+ , 4 = 60+
+        if not (knn_clf or Predictor.model_path):
             raise Exception("No model supplied")
         # Load the passed KNN model.
         if knn_clf is None:
-            with open(model_path, 'rb') as f:
+            with open(Predictor.model_path, 'rb') as f:
                 knn_clf = pickle.load(f)
         # Get the face location of the passed image.
         face_box = face_recognition.face_locations(frame)
@@ -30,7 +29,6 @@ class Predictor:
         return [(pred, loc) if rec else ("unknown", loc) for pred, loc, rec in
                 zip(knn_clf.predict(faces_encodings), face_box, matches
                     )]
-
 
 
 if __name__ == '__main__':

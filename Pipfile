@@ -8,6 +8,8 @@ deepface = "*"
 cmake = "*"
 face-recognition = "*"
 scikit-learn = "*"
+fastapi = "*"
+uvicorn = "*"
 
 [dev-packages]
 

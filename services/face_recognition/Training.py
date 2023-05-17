@@ -13,14 +13,12 @@ class Trainer:
         self.x = []
         self.y = []
         self.missed_pictures = 0
-        self.model_dir = "../../models/trained_knn_model.clf"
-        self.train_dir = "../../dataset"
 
-    def train(self, neighbours_num=5, algorithm='ball_tree'):
+    def train(self, train_dir, model_dir, neighbours_num=5, algorithm='ball_tree'):
         # Iterate over every directory in train_dir
-        people = [person for person in os.listdir(self.train_dir)]
+        people = list(os.listdir(train_dir))
         for person_dir in people:
-            if not os.path.isdir(os.path.join(self.train_dir, person_dir)):  # training-assets/Human
+            if not os.path.isdir(os.path.join(train_dir, person_dir)):  # training-assets/Human
                 continue
             # Iterate of the image of the current directory.
             for img_path in image_files_in_folder(os.path.join(self.train_dir, person_dir)):
@@ -29,7 +27,7 @@ class Trainer:
                 print("Checking :", img_path)
                 if len(num_of_faces) != 1:
                     # If there are no people or too many people in a training image, skip the image.
-                    print("Image {} skipped because of recognizing {} faces".format(img_path, len(num_of_faces)))
+                    print(f"Image {img_path} skipped because of recognizing {len(num_of_faces)} faces")
                     self.missed_pictures += 1
                 else:
                     # append the current face to our training set
@@ -47,8 +45,8 @@ class Trainer:
         self.x = Trainer.reshape_2d(self.x)
         knn_classifier.fit(self.x, self.y)
         # Save the trained KNN model in the directory we provided.
-        if self.model_dir is not None:
-            with open(self.model_dir, 'wb') as f:
+        if model_dir is not None:
+            with open(model_dir, 'wb') as f:
                 pickle.dump(knn_classifier, f)
             print("Train completed")
             print(f"{self.missed_pictures = }")
