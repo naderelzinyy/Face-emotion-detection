@@ -6,6 +6,8 @@ import * as face_api from "face-api.js";
 const FaceDetector = () => {
     const cameraRef = useRef();
     const canvasRef = useRef();
+    const [predictedName, setPredictedName] = useState('Name');
+    const [predictedEmotion, setPredictedEmotion] = useState('Emotion');
 
     const postImage = async (base64Image) => {
         try {
@@ -75,6 +77,8 @@ const FaceDetector = () => {
                 <video  ref={cameraRef}   autoPlay >
                 </video>
             </div>
+            <h1>{predictedName ? predictedName : "unknownbbb"}</h1>
+            <h1>{predictedEmotion ? predictedEmotion : "unknowneee"}</h1>
             <canvas ref={canvasRef}  width="940" height="650"
                     className='canvas' />
         </div>
