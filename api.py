@@ -9,7 +9,7 @@ from utils import convert_base64_to_image
 
 emotion_detector = EmotionDetector()
 app = FastAPI()
-origins = ['http://localhost:3000/', 'http://localhost:8000/']
+origins = ['http://localhost:3000/', 'http://localhost:8000/', 'http://127.0.0.1:3000/', 'http://0.0.0.0:3000/']
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
