@@ -35,7 +35,7 @@ class Predictor:
          zip(knn_clf.predict(faces_encodings), face_box, matches
              )]
         print(f"{res = }")
-        return res
+        return res[0][0]
 
 
 if __name__ == '__main__':
