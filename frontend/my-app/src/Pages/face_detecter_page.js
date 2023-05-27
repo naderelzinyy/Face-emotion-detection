@@ -55,7 +55,7 @@ const FaceDetector = () => {
                 [
                     face_api.nets.tinyFaceDetector.loadFromUri('/models'),
                 ]
-            ).then(handleCapture)
+            ).then(HandleCapture)
                 .catch((e)=>console.log(e))
         }
         cameraRef && loadModels();
