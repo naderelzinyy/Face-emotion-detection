@@ -54,9 +54,6 @@ const FaceDetector = () => {
             Promise.all(
                 [
                     face_api.nets.tinyFaceDetector.loadFromUri('/models'),
-                    face_api.nets.faceLandmark68Net.loadFromUri('/models'),
-                    face_api.nets.faceRecognitionNet.loadFromUri('/models'),
-                    face_api.nets.faceExpressionNet.loadFromUri('/models'),
                 ]
             ).then(handleCapture)
                 .catch((e)=>console.log(e))
