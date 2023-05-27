@@ -31,13 +31,21 @@ async def train() -> JSONResponse:
 
 
 @app.post("/predict")
-async def predict(request: Request) -> dict[str, str]:
+async def predict(request: Request) -> JSONResponse:
+
     body = await request.body()
     body = json.loads(body.decode())
     image = body.get("image")
+    emotion = emotion_detector.detect_emotion(image=image)
+    print(f"{emotion = }")
     image = convert_base64_to_image(image)
     image.save('base_test.png')
     predicted_name = Predictor().predict(frame=image, model_path="models/trained_knn_model.clf")
-    return {"name": predicted_name[0]} if len(predicted_name) else "user not found"
+    payload = {"name": predicted_name if len(predicted_name) else "user not found",
+               "emotion": emotion}
+    headers = {"Access-Control-Allow-Origin": "*"}
+    response = JSONResponse(content=payload, headers=headers)
+    print(f"{response.headers = } -- {response.body = } ")
+    return response
 
 
