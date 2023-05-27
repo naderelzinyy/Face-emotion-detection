@@ -9,7 +9,7 @@ const FaceDetector = () => {
 
     const postImage = async (base64Image) => {
         try {
-            response = await fetch('http://localhost:8000/predict', {
+            await fetch('http://localhost:8000/predict', {
                 method: 'POST',
                 body: JSON.stringify({ image: base64Image }),
             }).then((response) => {
