@@ -7,10 +7,44 @@ const FaceDetector = () => {
     const cameraRef = useRef();
     const canvasRef = useRef();
 
-    const handleCapture = async () => {
-        const detectedFace = await face_api.detectSingleFace(cameraRef.current,new face_api.TinyFaceDetectorOptions()) .withFaceLandmarks()
-            .withFaceExpressions();
-        console.log(detectedFace);
+    const postImage = async (base64Image) => {
+        try {
+            response = await fetch('http://localhost:8000/predict', {
+                method: 'POST',
+                body: JSON.stringify({ image: base64Image }),
+            }).then((response) => {
+                return response.text();
+            }).then(data => {
+                data = JSON.parse(data);
+                setPredictedName(data.name);
+                setPredictedEmotion(data.emotion);
+            })
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const HandleCapture = async () => {
+        const faceInterval = setInterval(async () => {
+            const detectedFace = await face_api.detectSingleFace(cameraRef.current, new face_api.TinyFaceDetectorOptions());
+            console.log(detectedFace);
+            if (detectedFace){
+                console.log("Face detected ");
+                clearInterval(faceInterval);
+                let width = 600;
+                let height = 600;
+                let canvas = document.createElement('canvas'); // Create a new canvas element
+                canvas.height = height;
+                canvas.width = width;
+                let ctx = canvas.getContext('2d');
+                ctx.drawImage(cameraRef.current, 0, 0, canvas.width, canvas.height);
+
+                // Convert the canvas to base64 format
+                const base64Image = canvas.toDataURL(); // data URL in base64 format
+                console.log(base64Image);
+                await postImage(base64Image);
+            }
+        }, 4000);
     }
     useEffect(() => {
         startWebcam();
