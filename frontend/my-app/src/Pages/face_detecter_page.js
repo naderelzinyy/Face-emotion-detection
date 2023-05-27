@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './face_detector.css'
 import * as face_api from "face-api.js";
 
