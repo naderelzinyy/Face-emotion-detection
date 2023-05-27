@@ -19,14 +19,15 @@ app.add_middleware(
 
 
 @app.get("/train")
-async def train() -> dict:
+async def train() -> JSONResponse:
+    payload = {"message": "training started"}
+    headers = {"Access-Control-Allow-Origin": "*"}
     try:
         training_thread = threading.Thread(target=Trainer().train, args=("dataset", "models/trained_knn_model.clf"))
         training_thread.start()
-        return {"message": "training started"}
-
+        return JSONResponse(content=payload, headers=headers)
     except Exception:
-        return {"message": "training failed"}
+        return JSONResponse(content={"message": "training failed"}, headers=headers)
 
 
 @app.post("/predict")
