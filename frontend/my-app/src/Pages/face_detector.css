@@ -6,6 +6,9 @@
     align-items: center;
     justify-content: space-between;
 }
+h1{
+    color: azure;
+}
 .webcam {
     display: flex;
     align-items: center;
