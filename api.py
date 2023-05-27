@@ -7,7 +7,7 @@ from services.face_recognition.Training import Trainer
 from fastapi.middleware.cors import CORSMiddleware
 from utils import convert_base64_to_image
 
-
+emotion_detector = EmotionDetector()
 app = FastAPI()
 origins = ['http://localhost:3000/', 'http://localhost:8000/']
 app.add_middleware(
