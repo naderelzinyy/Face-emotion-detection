@@ -2,6 +2,9 @@ import json
 import threading
 
 from fastapi import FastAPI, Request
+from starlette.responses import JSONResponse
+
+from services.emotion_detection.emotion_detector import EmotionDetector
 from services.face_recognition.Prediction import Predictor
 from services.face_recognition.Training import Trainer
 from fastapi.middleware.cors import CORSMiddleware
