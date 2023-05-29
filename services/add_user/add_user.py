@@ -30,11 +30,11 @@ class AddUser:
 
     def save_image(self, user_full_name: str, images: list):
         user_directory = self.create_user_directory(user_full_name)
-        file_count = len(os.listdir(user_directory))
-        file_name = f"{user_full_name}_image_{file_count}.jpg"
-        image_path = os.path.join(user_directory, file_name)
-
-        with open(image_path, 'wb') as image_file:
-            image_file.write(image_data)
-
-        print(f"Image saved: {image_path}")
+        for image in images:
+            if image.startswith('data:image'):
+                image = image.split(',')[1]
+            # convert to bytes
+            image = base64.b64decode(image)
+            with open(os.path.join(user_directory, f"{datetime.datetime.now()}.jpg"), 'wb') as image_file:
+                image_file.write(image)
+            print("Saved an image")
