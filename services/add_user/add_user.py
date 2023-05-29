@@ -28,7 +28,7 @@ class AddUser:
 
         return directory_path
 
-    def save_image(self, user_full_name: str, image_data: bytes):
+    def save_image(self, user_full_name: str, images: list):
         user_directory = self.create_user_directory(user_full_name)
         file_count = len(os.listdir(user_directory))
         file_name = f"{user_full_name}_image_{file_count}.jpg"
