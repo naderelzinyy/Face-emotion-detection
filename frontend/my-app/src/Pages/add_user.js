@@ -102,12 +102,10 @@ function AddUser() {
                 </Grid>
                 <Grid item>
                     <div className="webcam-container">
-                        <Webcam
-                            audio={false}
-                            screenshotFormat="image/jpeg"
-                            ref={webcamRef}
-                            videoConstraints={videoConstraints}
-                        />
+                        <div className='webcam'>
+                            <video  ref={webcamRef}   autoPlay >
+                            </video>
+                        </div>
                         <Button variant="contained" onClick={captureImage} className="capture-btn" disabled={capturedImages.length === 6}>
                             <CameraAltIcon/>
                         </Button>
