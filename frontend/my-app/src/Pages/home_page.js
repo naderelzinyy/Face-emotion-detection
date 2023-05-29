@@ -5,7 +5,7 @@ import './home_page.css';
 
 export default function HomePage() {
     return (
-        <container>
+        <div className="container">
             <Link to="/add_user">
             <Button variant="contained" disableElevation>
                 Add New User
