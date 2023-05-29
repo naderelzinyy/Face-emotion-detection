@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './face_detector.css'
 import * as face_api from "face-api.js";
+import {Link} from "react-router-dom";
+import Button from "@mui/material/Button";
 
 
 const FaceDetector = () => {
@@ -46,7 +48,7 @@ const FaceDetector = () => {
                 console.log(base64Image);
                 await postImage(base64Image);
             }
-        }, 4000);
+        }, 2000);
     }
     useEffect(() => {
         startWebcam();
@@ -76,6 +78,11 @@ const FaceDetector = () => {
             </div>
             <h1>{predictedName ? predictedName : "unknownbbb"}</h1>
             <h1>{predictedEmotion ? predictedEmotion : "unknowneee"}</h1>
+            <Link to="/">
+                <Button variant="contained">
+                    Back
+                </Button>
+            </Link>
             <canvas ref={canvasRef}  width="940" height="650"
                     className='canvas' />
         </div>
