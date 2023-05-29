@@ -25,10 +25,10 @@ class EmotionDetector(DeepFaceAttributes):
             print(exception)
 
     def detect_emotion(self, image):
-        Emotion = DeepFace.analyze(img_path=image,
+        emotion = DeepFace.analyze(img_path=image,
                                 actions=['emotion'], detector_backend=self.detector_backend,
                                 )
-        return Emotion[0]['dominant_emotion']
+        return emotion[0]['dominant_emotion']
 
 
 

@@ -11,9 +11,11 @@ export default function HomePage() {
                 Add New User
             </Button>
             </Link>
+            <Link to="/face_detector">
             <Button variant="contained" disableElevation>
                 Recognize Me :)
             </Button>
+            </Link>
         </container>
     );
 }
