@@ -16,6 +16,6 @@ export default function HomePage() {
                 Recognize Me :)
             </Button>
             </Link>
-        </container>
+        </div>
     );
 }
