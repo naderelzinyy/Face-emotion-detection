@@ -4,6 +4,7 @@ import threading
 from fastapi import FastAPI, Request
 from starlette.responses import JSONResponse
 
+from services.add_user.add_user import AddUser
 from services.emotion_detection.emotion_detector import EmotionDetector
 from services.face_recognition.Prediction import Predictor
 from services.face_recognition.Training import Trainer
@@ -19,18 +20,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-
-
-@app.get("/train")
-async def train() -> JSONResponse:
-    payload = {"message": "training started"}
-    headers = {"Access-Control-Allow-Origin": "*"}
-    try:
-        training_thread = threading.Thread(target=Trainer().train, args=("dataset", "models/trained_knn_model.clf"))
-        training_thread.start()
-        return JSONResponse(content=payload, headers=headers)
-    except Exception:
-        return JSONResponse(content={"message": "training failed"}, headers=headers)
 
 
 @app.post("/predict")
@@ -51,4 +40,18 @@ async def predict(request: Request) -> JSONResponse:
     print(f"{response.headers = } -- {response.body = } ")
     return response
 
+
+@app.post("/saveImages")
+async def save_images(request: Request) -> JSONResponse:
+    body = await request.body()
+    body = json.loads(body.decode())
+    images = list(body.get("images"))
+    name = body.get("name")
+    AddUser().save_image(images=images, user_full_name=name)
+    training_thread = threading.Thread(target=Trainer().train, args=("dataset", "models/trained_knn_model.clf"))
+    training_thread.start()
+    training_thread.join()
+    payload = {"message": "Photos saved"}
+    headers = {"Access-Control-Allow-Origin": "*"}
+    return JSONResponse(content=payload, headers=headers)
 

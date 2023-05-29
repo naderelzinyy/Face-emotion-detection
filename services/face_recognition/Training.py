@@ -21,7 +21,7 @@ class Trainer:
             if not os.path.isdir(os.path.join(train_dir, person_dir)):  # training-assets/Human
                 continue
             # Iterate of the image of the current directory.
-            for img_path in image_files_in_folder(os.path.join(self.train_dir, person_dir)):
+            for img_path in image_files_in_folder(os.path.join(train_dir, person_dir)):
                 img = face_recognition.load_image_file(img_path)
                 num_of_faces = face_recognition.face_locations(img)
                 print("Checking :", img_path)
