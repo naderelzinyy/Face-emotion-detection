@@ -14,13 +14,19 @@ function AddUser() {
     const [capturedImages, setCapturedImages] = useState([]);
     const [showSaveButton, setShowSaveButton] = useState(false);
     const webcamRef = useRef(null);
-    const videoConstraints = {
-        width: 400,
-        height: 300,
-        facingMode: 'user',
-    };
+    let updatedImages;
+
+    const startWebcam = () => {
+        navigator.mediaDevices.getUserMedia({ video: true    })
+            .then((currentStream) => {
+                webcamRef.current.srcObject = currentStream;
+            }).catch((err) => {
+            console.error(err)
+        });
+    }
 
     useEffect(() => {
+        startWebcam();
         if (capturedImages.length === 6) {
             setShowSaveButton(true);
         } else {
