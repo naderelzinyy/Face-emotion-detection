@@ -50,6 +50,7 @@ async def save_images(request: Request) -> JSONResponse:
     AddUser().save_image(images=images, user_full_name=name)
     training_thread = threading.Thread(target=Trainer().train, args=("dataset", "models/trained_knn_model.clf"))
     training_thread.start()
+    training_thread.join()
     payload = {"message": "Photos saved"}
     headers = {"Access-Control-Allow-Origin": "*"}
     return JSONResponse(content=payload, headers=headers)
