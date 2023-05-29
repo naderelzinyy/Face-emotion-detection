@@ -35,9 +35,15 @@ function AddUser() {
     }, [capturedImages]);
 
     const captureImage = () => {
-        const imageSrc = webcamRef.current.getScreenshot();
+        let canvas = document.createElement('canvas'); // Create a new canvas element
+        canvas.height = 600;
+        canvas.width = 600;
+        let ctx = canvas.getContext('2d');
+        ctx.drawImage(webcamRef.current, 0, 0, canvas.width, canvas.height);
+        const imageSrc = canvas.toDataURL();
+
         setCapturedImages(prevImages => {
-            const updatedImages = [...prevImages, imageSrc];
+            updatedImages = [...prevImages, imageSrc];
             if (updatedImages.length === 6) {
                 setShowSaveButton(true);
             }
