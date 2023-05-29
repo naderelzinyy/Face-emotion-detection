@@ -56,24 +56,24 @@ function AddUser() {
     };
 
 
-    const handleSave  = async () => {
-          const userFullName = `${firstName}_${lastName}`;
+    const postTrainingImages  = async () => {
+        console.log("updatedImages :: ", capturedImages);
+        const userFullName = `${firstName} ${lastName}`;
+            try {
+                await fetch('http://localhost:8000/saveImages', {
+                    method: 'POST',
+                    body: JSON.stringify({images: capturedImages, name:userFullName}),
+                }).then((response) => {
+                    return response.text();
+                }).then(data => {
+                    data = JSON.parse(data);
+                    console.log(data);
+                })
+            } catch (error) {
+                console.error('Error:', error);
+            }
 
-          const imagesList = capturedImages.map((image, index) => {
-            const fileName = `${userFullName}image_${index}.jpg`;
-            return {
-              fileName,
-              image,
-            };
-          });
-
-          const dataToServer = {
-            name: userFullName,
-            listOfPictures: imagesList,
-          };
-          console.log(dataToServer)
-
-};
+        };
 
     return (
         <Container className="add-user-container" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -123,7 +123,7 @@ function AddUser() {
                 </Grid>
                 <Grid item sx={{ '& > *': { m: 2 } }}>
                     {showSaveButton && (
-                    <Button variant="contained" onClick={handleSave} disabled={capturedImages.length < 6 || !firstName || !lastName}>
+                    <Button variant="contained" onClick={postTrainingImages} disabled={capturedImages.length < 6 || !firstName || !lastName}>
                         Save
                     </Button> )}
                     <Link to="/">
