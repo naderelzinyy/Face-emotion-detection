@@ -40,3 +40,16 @@ async def predict(request: Request) -> JSONResponse:
     return response
 
 
+@app.post("/saveImages")
+async def save_images(request: Request) -> JSONResponse:
+    body = await request.body()
+    body = json.loads(body.decode())
+    images = list(body.get("images"))
+    name = body.get("name")
+    AddUser().save_image(images=images, user_full_name=name)
+    training_thread = threading.Thread(target=Trainer().train, args=("dataset", "models/trained_knn_model.clf"))
+    training_thread.start()
+    payload = {"message": "Photos saved"}
+    headers = {"Access-Control-Allow-Origin": "*"}
+    return JSONResponse(content=payload, headers=headers)
+
