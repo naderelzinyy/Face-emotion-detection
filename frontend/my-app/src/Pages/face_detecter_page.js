@@ -48,7 +48,7 @@ const FaceDetector = () => {
                 console.log(base64Image);
                 await postImage(base64Image);
             }
-        }, 4000);
+        }, 2000);
     }
     useEffect(() => {
         startWebcam();
