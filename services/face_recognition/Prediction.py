@@ -9,7 +9,7 @@ class Predictor:
     model_path = "../../models/trained_knn_model.clf"
 
     @staticmethod
-    def predict(frame, model_path, knn_clf=None, threshold=0.6):  # accuracy = 1 - threshold
+    def predict(frame, model_path, knn_clf=None, threshold=0.3):  # accuracy = 1 - threshold
         if not (knn_clf or model_path):
             raise Exception("No model supplied")
         # Load the passed KNN model.
