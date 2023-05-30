@@ -26,7 +26,7 @@ class EmotionDetector(DeepFaceAttributes):
 
     def detect_emotion(self, image):
         emotion = DeepFace.analyze(img_path=image,
-                                actions=['emotion'], detector_backend=self.detector_backend,
+                                actions=['emotion'], detector_backend=self.detector_backend, enforce_detection=False
                                 )
         return emotion[0]['dominant_emotion']
 
