@@ -4,6 +4,8 @@ import AddUser from "./Pages/add_user"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import FaceDetector from "./Pages/face_detecter_page";
+import '@fontsource/roboto/500.css';
+
 
 
 export default function MyApp() {
@@ -11,7 +13,7 @@ export default function MyApp() {
   const theme = createTheme({
     typography: {
       allVariants: {
-        fontFamily: 'Cairo',
+        fontFamily: 'Roboto',
         fontSize: 16,
         fontWeight: "bolder"
       },
