@@ -1,11 +1,11 @@
 tts_templates = {
-    "natural": "Hello, {name} I am happy that you are in a good mode for today",
-    "fear": "Hello, {name} you look like you have fear of something I hope you become better soon",
-    "happy": "Hello, {name} I am very happy that you look happy today",
-    "sad": "Hello, {name} I am very sorry you look not in the mood for today",
-    "surprise": "Hello, {name} you look surprised",
-    "angry": "Hello, {name} there is nothing worth being angry please calm down",
-    "disgust": "Hello, {name} sometimes dealing with life might make you disgusted please calm down everything will be fine"
+    "neutral": "Hello {name}. I am happy to see you",
+    "fear": "Hello {name}. u look frightened",
+    "happy": "Hello {name}. you look happy",
+    "sad": "Hello {name}. you don't look in the mood. I am sorry for you ",
+    "surprise": "Hello {name}. you look surprised",
+    "angry": "Hello {name}. you look angry",
+    "disgust": "Hello {name}. sometimes dealing with life might make you disgusted please calm down everything will be fine"
 
 }
 

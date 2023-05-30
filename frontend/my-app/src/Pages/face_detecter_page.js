@@ -3,13 +3,25 @@ import './face_detector.css'
 import * as face_api from "face-api.js";
 import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
-
+import {useSpeechSynthesis} from "react-speech-kit";
 
 const FaceDetector = () => {
     const cameraRef = useRef();
     const canvasRef = useRef();
     const [predictedName, setPredictedName] = useState('Name');
     const [predictedEmotion, setPredictedEmotion] = useState('Emotion');
+    const [sentence, setSentence] = useState();
+    const {speak, voices} = useSpeechSynthesis();
+
+    function say(text){
+        console.log("sayy", text);
+        speak({text: text, voice: voices[145]});
+    }
+    useEffect( () => {
+        if (sentence){
+            say(sentence);
+        }
+    }, [sentence])
 
     const postImage = async (base64Image) => {
         try {
@@ -20,6 +32,7 @@ const FaceDetector = () => {
                 return response.text();
             }).then(data => {
                 data = JSON.parse(data);
+                setSentence(data.utterance);
                 setPredictedName(data.name);
                 setPredictedEmotion(data.emotion);
             })
@@ -76,15 +89,15 @@ const FaceDetector = () => {
                 <video  ref={cameraRef}   autoPlay >
                 </video>
             </div>
-            <h1>{predictedName ? predictedName : "unknownbbb"}</h1>
-            <h1>{predictedEmotion ? predictedEmotion : "unknowneee"}</h1>
+            <h1>{predictedName ? predictedName : "unknown"}</h1>
+            <h1>{predictedEmotion ? predictedEmotion : "unknown"}</h1>
             <Link to="/">
                 <Button variant="contained">
                     Back
                 </Button>
             </Link>
-            <canvas ref={canvasRef}  width="940" height="650"
-                    className='canvas' />
+            {/*<canvas ref={canvasRef}  width="940" height="650"*/}
+            {/*        className='canvas' />*/}
         </div>
     );
 };

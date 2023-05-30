@@ -9,6 +9,8 @@ from services.emotion_detection.emotion_detector import EmotionDetector
 from services.face_recognition.Prediction import Predictor
 from services.face_recognition.Training import Trainer
 from fastapi.middleware.cors import CORSMiddleware
+
+from services.tts.system_response import TTSRequester
 from utils import convert_base64_to_image
 
 emotion_detector = EmotionDetector()
@@ -22,6 +24,13 @@ app.add_middleware(
 )
 
 
+@app.get("/train")
+async def train():
+    training_thread = threading.Thread(target=Trainer().train, args=("dataset", "models/trained_knn_model.clf"))
+    training_thread.start()
+    return JSONResponse(content={"message": "training started"})
+
+
 @app.post("/predict")
 async def predict(request: Request) -> JSONResponse:
 
@@ -33,8 +42,10 @@ async def predict(request: Request) -> JSONResponse:
     image = convert_base64_to_image(image)
     image.save('base_test.png')
     predicted_name = Predictor().predict(frame=image, model_path="models/trained_knn_model.clf")
+    sentence = TTSRequester.get_response(feeling=emotion, name=predicted_name if predicted_name != "unknown" else "")
     payload = {"name": predicted_name if len(predicted_name) else "user not found",
-               "emotion": emotion}
+               "emotion": emotion,
+               "utterance": sentence}
     headers = {"Access-Control-Allow-Origin": "*"}
     response = JSONResponse(content=payload, headers=headers)
     print(f"{response.headers = } -- {response.body = } ")
