@@ -24,6 +24,13 @@ app.add_middleware(
 )
 
 
+@app.get("/train")
+async def train():
+    training_thread = threading.Thread(target=Trainer().train, args=("dataset", "models/trained_knn_model.clf"))
+    training_thread.start()
+    return JSONResponse(content={"message": "training started"})
+
+
 @app.post("/predict")
 async def predict(request: Request) -> JSONResponse:
 
