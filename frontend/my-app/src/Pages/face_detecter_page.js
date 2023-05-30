@@ -89,15 +89,15 @@ const FaceDetector = () => {
                 <video  ref={cameraRef}   autoPlay >
                 </video>
             </div>
-            <h1>{predictedName ? predictedName : "unknownbbb"}</h1>
-            <h1>{predictedEmotion ? predictedEmotion : "unknowneee"}</h1>
+            <h1>{predictedName ? predictedName : "unknown"}</h1>
+            <h1>{predictedEmotion ? predictedEmotion : "unknown"}</h1>
             <Link to="/">
                 <Button variant="contained">
                     Back
                 </Button>
             </Link>
-            <canvas ref={canvasRef}  width="940" height="650"
-                    className='canvas' />
+            {/*<canvas ref={canvasRef}  width="940" height="650"*/}
+            {/*        className='canvas' />*/}
         </div>
     );
 };
